@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 -- Estructura de la taula `contacto`
 --
 
-CREATE TABLE `contacto` (
+CREATE TABLE `contacto1` (
   `email` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `nombre` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `mensaje` text COLLATE utf8_unicode_ci NOT NULL
