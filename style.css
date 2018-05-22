@@ -1,0 +1,11 @@
+#menu{
+	background-color: black !important;
+	
+}
+#i1, #i2, #i3, #i4, #i5, #i6, #i7, #i8, #i9{
+	color:white !important;
+}
+#navbarDropdownCalendario, #navbarDropdownEquipos{
+	color: white !important;
+	background-color: rgba(0,0,0,0.8) !important;
+}
