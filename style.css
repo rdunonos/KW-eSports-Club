@@ -9,3 +9,23 @@
 	color: white !important;
 	background-color: rgba(0,0,0,0.8) !important;
 }
+*{
+	font-family: 'Jockey One', sans-serif;
+}
+
+
+.titol{
+	display:flex;
+	margin-top:20px;
+}
+.titol > h1{
+
+	padding-top: 90px;
+	font-weight: bold;
+	font-size:90px;
+	font-size-adjust: 0.58;
+	padding-left: 30px;
+}
+#button-principal{
+	margin:120px 0px 120px 120px;
+}
