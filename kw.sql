@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Temps de generació: 29-05-2018 a les 16:13:59
+-- Temps de generació: 29-05-2018 a les 19:20:16
 -- Versió del servidor: 10.1.28-MariaDB
 -- Versió de PHP: 5.6.32
 
@@ -41,9 +41,19 @@ CREATE TABLE `contacto` (
 --
 
 CREATE TABLE `equipo` (
-  `staff` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `eSport` int(11) NOT NULL
+  `eSport` int(11) NOT NULL,
+  `nombre_eSport` varchar(20) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Bolcant dades de la taula `equipo`
+--
+
+INSERT INTO `equipo` (`eSport`, `nombre_eSport`) VALUES
+(1, 'League of Legends'),
+(2, 'PUBG'),
+(3, 'Arena of Valor'),
+(4, 'Hearthstone');
 
 -- --------------------------------------------------------
 
@@ -67,12 +77,20 @@ CREATE TABLE `eventos` (
 --
 
 CREATE TABLE `fotos` (
+  `file_foto` mediumblob NOT NULL,
   `id_foto` int(11) NOT NULL,
   `Album` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `titulo` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `fecha` date NOT NULL,
   `fRegistro` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Bolcant dades de la taula `fotos`
+--
+
+INSERT INTO `fotos` (`file_foto`, `id_foto`, `Album`, `titulo`, `fecha`, `fRegistro`) VALUES
+('', 1, 'Jugadores', 'Exter', '2017-12-23', '2018-05-29');
 
 -- --------------------------------------------------------
 
@@ -81,14 +99,22 @@ CREATE TABLE `fotos` (
 --
 
 CREATE TABLE `jugador` (
-  `id_jugador` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `id_jugador` int(11) NOT NULL,
   `nombre` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `apellidos` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `sexo` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `eSport` int(11) NOT NULL,
   `username` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `rol` varchar(25) COLLATE utf8_unicode_ci NOT NULL
+  `rol` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `id_foto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Bolcant dades de la taula `jugador`
+--
+
+INSERT INTO `jugador` (`id_jugador`, `nombre`, `apellidos`, `sexo`, `eSport`, `username`, `rol`, `id_foto`) VALUES
+(1, 'Roger', 'Duñó', 'Hombre', 1, 'KW Exter', 'Jugador', 1);
 
 --
 -- Indexos per taules bolcades
@@ -123,8 +149,9 @@ ALTER TABLE `fotos`
 -- Index de la taula `jugador`
 --
 ALTER TABLE `jugador`
-  ADD PRIMARY KEY (`id_jugador`),
-  ADD UNIQUE KEY `eSport` (`eSport`);
+  ADD PRIMARY KEY (`username`),
+  ADD UNIQUE KEY `eSport` (`eSport`),
+  ADD KEY `fk_fotos_jugador` (`id_foto`);
 
 --
 -- AUTO_INCREMENT per les taules bolcades
@@ -134,7 +161,7 @@ ALTER TABLE `jugador`
 -- AUTO_INCREMENT per la taula `fotos`
 --
 ALTER TABLE `fotos`
-  MODIFY `id_foto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_foto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restriccions per taules bolcades
@@ -150,7 +177,8 @@ ALTER TABLE `eventos`
 -- Restriccions per la taula `jugador`
 --
 ALTER TABLE `jugador`
-  ADD CONSTRAINT `fk_equipo_jugador` FOREIGN KEY (`eSport`) REFERENCES `equipo` (`eSport`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_equipo_jugador` FOREIGN KEY (`eSport`) REFERENCES `equipo` (`eSport`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_fotos_jugador` FOREIGN KEY (`id_foto`) REFERENCES `fotos` (`id_foto`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
